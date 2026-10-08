@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 5003
 
-CMD ["node", "registration.js"]
+CMD ["node", "student.js"]
