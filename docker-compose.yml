@@ -1,0 +1,109 @@
+version: "3.9"
+
+services:
+
+  registration-service:
+    container_name: registration_service
+
+    build:
+      context: ./registration-service
+      dockerfile: Dockerfile
+
+    restart: unless-stopped
+
+    ports:
+      - "5001:5001"
+
+    env_file:
+      - ./registration-service/.env
+
+    environment:
+      NODE_ENV: production
+      PORT: 5001
+
+
+  login-service:
+    container_name: login_service
+
+    build:
+      context: ./login-service
+      dockerfile: Dockerfile
+
+    restart: unless-stopped
+
+    ports:
+      - "5002:5002"
+
+    env_file:
+      - ./login-service/.env
+
+    environment:
+      NODE_ENV: production
+      PORT: 5002
+
+
+  student-service:
+    container_name: student_service
+
+    build:
+      context: ./student-service
+      dockerfile: Dockerfile
+
+    restart: unless-stopped
+
+    ports:
+      - "5003:5003"
+
+    env_file:
+      - ./student-service/.env
+
+    environment:
+      NODE_ENV: production
+      PORT: 5003
+
+
+  attendance-service:
+    container_name: attendance_service
+
+    build:
+      context: ./attendance-service
+      dockerfile: Dockerfile
+
+    restart: unless-stopped
+
+    ports:
+      - "5004:5004"
+
+    env_file:
+      - ./attendance-service/.env
+
+    environment:
+      NODE_ENV: production
+      PORT: 5004
+
+
+  api-gateway:
+    container_name: api_gateway
+
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+
+    restart: unless-stopped
+
+    ports:
+      - "5000:5000"
+
+    env_file:
+      - ./api-gateway/.env
+
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+
+    depends_on:
+      - registration-service
+      - login-service
+      - student-service
+      - attendance-service
+
